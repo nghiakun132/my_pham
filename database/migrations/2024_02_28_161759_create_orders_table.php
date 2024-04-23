@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->unsignedBigInteger('user_id');
             $table->decimal('discount', 15, 2)->default(0);
             $table->decimal('shipping_fee', 15, 2)->default(0);

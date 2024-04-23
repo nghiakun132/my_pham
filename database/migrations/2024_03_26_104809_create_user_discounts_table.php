@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('discount_id');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
         });
     }
