@@ -46,30 +46,30 @@ composer require symfony/dom-crawler
 
 {
   "loop_data": {
-    "loop": "div.ProductGrid__grid div",
+    "loop": "div.ProductGrid__grid div.ProductGridItem__itemOuter",
     "database": {
       "table": "hasaki",
       "template_id": "template_file/demo2.json"
     },
     "data": {
       "main_url": {
-        "dom": "div a",
+        "dom": "div.item_sp_hasaki a.block_info_item_sp",
         "type": "href",
-        "position": 1,
-        "replace": {
-          "type": "concat",
-          "from": "before",
-          "to": "https://hasaki.vn/"
-        }
-      },
-      "main_name": {
-        "dom": "a.parent_menu",
-        "type": "innertext",
         "position": 0
       },
-      "sub_url": {
-        "dom": "div.conten_hover_submenu div.col_hover_submenu ",
-        "type": "innertext",
+      "main_name": {
+        "dom": "div.item_sp_hasaki a.block_info_item_sp",
+        "type": "data-name",
+        "position": 0
+      },
+      "price": {
+        "dom": "div.item_sp_hasaki a.block_info_item_sp",
+        "type": "data-price",
+        "position": 0
+      },
+      "brands": {
+        "dom": "div.item_sp_hasaki a.block_info_item_sp",
+        "type": "data-brand",
         "position": 0
       }
     },
