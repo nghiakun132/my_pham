@@ -61,7 +61,7 @@
                         </a>
                     </div>
 
-                    <div class="filter-widget">
+                    {{-- <div class="filter-widget">
                         <h4 class="fw-title">Size</h4>
                         <div class="fw-size-choose">
                             @foreach ($sizes as $size)
@@ -78,7 +78,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- <div class="filter-widget">
                         <h4 class="fw-title">Tags</h4>
                         <div class="fw-tags">

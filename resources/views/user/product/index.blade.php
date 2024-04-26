@@ -66,7 +66,7 @@
                                     <span>(5)</span>
                                 </div>
                                 <div class="pd-desc">
-                                    <p>{!! $product->description !!}</p>
+                                    {{-- <p>{!! $product->description !!}</p> --}}
                                     <h4><span style="text-decoration: underline">Giá bán:</span>
                                         {{ number_format($product->sale_price) }}
                                         đ
@@ -77,7 +77,7 @@
                                         @endif
                                     </h4>
                                 </div>
-                                <div class="mb-2">
+                                {{-- <div class="mb-2">
                                     <label for="size">Size</label>
                                     <select name="size" id="size" class="form-control">
                                         <option value="">Chọn size</option>
@@ -88,7 +88,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
 
                                 <div class="quantity">
                                     <div class="pro-qty">
@@ -176,7 +176,7 @@
                                                 <td class="p-catagory">
                                                     Số lượng
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <div class="p-stock">
                                                         <ul class="lisr-group">
                                                             @foreach ($product->size as $size)
@@ -188,7 +188,7 @@
 
                                                         </ul>
                                                     </div>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         </table>
                                     </div>

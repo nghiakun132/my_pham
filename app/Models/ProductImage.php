@@ -9,8 +9,8 @@ class ProductImage extends Model
 {
     use HasFactory;
 
-    public function getPathAttribute($value)
-    {
-        return asset('products/' . $value);
-    }
+    // public function getPathAttribute($value)
+    // {
+    //     return asset('products/' . $value);
+    // }
 }

@@ -11,7 +11,7 @@ class ProductController extends Controller
     public function index($slug)
     {
         $product = Product::where('slug', $slug)->with(
-            ['images', 'category', 'brand', 'size']
+            ['images', 'category', 'brand']
         )->first();
 
         if (!$product) {

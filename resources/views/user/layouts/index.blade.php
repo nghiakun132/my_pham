@@ -208,7 +208,6 @@
                                 </li>
                             @endif
                         @endforeach
-                        <li><a href="./contact.html">Liên hệ</a></li>
                     </ul>
                 </nav>
                 <div id="mobile-menu-wrap"></div>
