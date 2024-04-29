@@ -93,7 +93,7 @@
                         text-danger
                     @enderror">
                     <label for="description">Mô tả</label>
-                    <textarea name="description" id="description" class="form-control" rows="5">{{ $product->description }}</textarea>
+                    <textarea name="description" id="description" class="form-control" rows="15">{{ $product->description }}</textarea>
                     @error('description')
                         <p class="text-danger">
                             {{ $message }}
@@ -125,48 +125,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div>
-                    <h4>
-                        Size và số lượng
-                    </h4>
-                    <div class="row" id="form-size-quantity">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50%">Size</th>
-                                    <th style="width: 50%">Số lượng</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($product->size as $productSize)
-                                    <tr>
-                                        <td>
-                                            <select name="size[]" id="size" class="form-control">
-                                                @foreach ($sizes as $size)
-                                                    <option value="{{ $size->id }}"
-                                                        {{ $size->id == $productSize->pivot->size_id ? 'selected' : '' }}>
-                                                        {{ $size->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="quantity[]" id="quantity"
-                                                value="{{ $productSize->pivot->quantity }}">
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger remove-size-quantity">-</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="d-flex justify-content-center col-12">
-                        <button type="button" class="btn btn-primary" id="add-size-quantity">+</button>
-                    </div>
-                </div>
+
                 <div class="d-flex justify-content-between">
                     <a href="{{ route('admin.brand.index') }}" class="btn btn-secondary">
                         Quay lại
@@ -184,34 +143,6 @@
 
 @section('extra-scripts')
     <script>
-        $(document).ready(function() {
-            $('#add-size-quantity').click(function() {
-                $("#form-size-quantity table tbody").append(`
-                        <tr>
-                            <td>
-                                <select name="size[]" id="size" class="form-control">
-                                    <option value="">Chọn size</option>
-                                    @foreach ($sizes as $size)
-    <option value="{{ $size->id }}">{{ $size->name }}</option>
-    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" class="form-control" name="quantity[]" id="quantity" value="0">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger remove-size-quantity">-</button>
-                            </td>
-                        </tr>
-                    `);
-
-            });
-
-            $(document).on('click', '.remove-size-quantity', function() {
-                $(this).closest('tr').remove();
-            });
-        });
-
         function previewImages() {
             var preview = document.querySelector('.preview-image');
             var fileInput = document.querySelector("#images");

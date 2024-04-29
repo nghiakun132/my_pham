@@ -121,7 +121,7 @@
                                                     <tr>
                                                         <td class="si-pic"><img src="{{ $cart->product->image }}"
                                                                 width="80" height="80"
-                                                                alt="{{ $cart->product->name }} - {{ $cart->size->name }}">
+                                                                alt="{{ $cart->product->name }} ">
                                                         </td>
                                                         <td class="si-text">
                                                             <div class="product-selected">
@@ -135,8 +135,7 @@
                                                                     {{ $cart->quantity }}
                                                                 </p>
                                                                 <h6>
-                                                                    {{ $cart->product->name }} -
-                                                                    {{ $cart->size->name }}
+                                                                    {{ $cart->product->name }}
                                                                 </h6>
                                                             </div>
                                                         </td>

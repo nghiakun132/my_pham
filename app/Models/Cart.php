@@ -15,7 +15,6 @@ class Cart extends Model
         'user_id',
         'product_id',
         'quantity',
-        'size_id',
     ];
 
 
@@ -24,15 +23,10 @@ class Cart extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function size()
-    {
-        return $this->belongsTo(Size::class, 'size_id');
-    }
-
     public static function getCart($userId)
     {
         return self::where('user_id', $userId)
-            ->with(['product', 'size'])
+            ->with(['product'])
             ->get();
     }
 }

@@ -18,6 +18,6 @@ const LIST_SORT = [
 
 const BANNER_CATEGORY = [
     1 => 'user/img/banner-1.jpg',
-    2 => 'user/img/banner-2.jpg',
+    4 => 'user/img/banner-2.jpg',
     3 => 'user/img/banner-3.jpg',
 ];

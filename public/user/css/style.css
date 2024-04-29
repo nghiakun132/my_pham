@@ -4360,3 +4360,13 @@ select{
     background: #f01111;
     border-radius: 10px;
 }
+
+
+.title-banner{
+    color: #f01111 !important;
+    background-color: #f3eeee !important;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 20px 10px;
+}

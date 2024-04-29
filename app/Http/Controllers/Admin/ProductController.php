@@ -18,7 +18,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['category', 'brand', 'size'])->get();
+        $products = Product::with(['category', 'brand'])
+            ->orderBy('id', 'desc')->get();
 
         $data = [
             'products' => $products,
@@ -31,12 +32,9 @@ class ProductController extends Controller
     {
         $categories = Category::where('parent_id', '<>', 0)->get();
         $brands = Brand::all();
-        $sizes = Size::all();
-
         $data = [
             'categories' => $categories,
             'brands' => $brands,
-            'sizes' => $sizes,
         ];
 
         return view('admin.product.create', $data);
@@ -51,7 +49,8 @@ class ProductController extends Controller
             'brand_id' => 'required',
             'description' => 'max:1000',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'sale' => 'numeric|min:0|max:100',
+            'sale' => 'nullable|numeric|min:0|max:100',
+            'quantity' => 'required|numeric|min:0',
         ], [
             'name.required' => 'Tên sản phẩm không được để trống',
             'name.max' => 'Tên sản phẩm không được quá 254 ký tự',
@@ -69,6 +68,9 @@ class ProductController extends Controller
             'sale.numeric' => 'Giảm giá phải là số',
             'sale.min' => 'Giảm giá không được nhỏ hơn 0',
             'sale.max' => 'Giảm giá không được lớn hơn 100',
+            'quantity.required' => 'Số lượng không được để trống',
+            'quantity.numeric' => 'Số lượng phải là số',
+            'quantity.min' => 'Số lượng không được nhỏ hơn 0',
         ]);
 
         $avatar = $request->file('image');
@@ -86,59 +88,38 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->image = $avatarName;
         $product->sale = $request->sale;
+        $product->quantity = $request->quantity;
         $product->save();
-
-        $sizes = $request->size;
-        $quantities = $request->quantity;
-
-        $productSizes = [];
-        foreach ($sizes as $key => $size) {
-            if (isset($productSizes[$size])) {
-                $productSizes[$size] = [
-                    'product_id' => $product->id,
-                    'size_id' => $size,
-                    'quantity' => $quantities[$key] + $productSizes[$size]['quantity'],
-                ];
-            } else {
-                $productSizes[$size] = [
-                    'product_id' => $product->id,
-                    'size_id' => $size,
-                    'quantity' => $quantities[$key],
-                ];
-            }
-        }
 
         $images = $request->file('images');
 
-        $productImages = [];
-        foreach ($images as $image) {
-            $imageName = date('Ymdhis') . '_' . $image->getClientOriginalName();
-            $image->move(public_path('products'), $imageName);
+        if ($images) {
+            foreach ($images as $image) {
+                $imageName = date('Ymdhis') . '_' . $image->getClientOriginalName();
+                $image->move(public_path('products'), $imageName);
 
-            $productImages[] = [
-                'product_id' => $product->id,
-                'path' => $imageName,
-            ];
+                $productImages[] = [
+                    'product_id' => $product->id,
+                    'path' => $imageName,
+                ];
+            }
+
+            ProductImage::insert($productImages);
         }
-
-        ProductSize::insert($productSizes);
-        ProductImage::insert($productImages);
 
         return redirect()->route('admin.product.index');
     }
 
     public function edit($id)
     {
-        $product = Product::with(['size', 'category', 'brand', 'images'])->find($id);
+        $product = Product::with(['category', 'brand', 'images'])->find($id);
         $categories = Category::where('parent_id', '<>', 0)->get();
         $brands = Brand::all();
-        $sizes = Size::all();
 
         $data = [
             'product' => $product,
             'categories' => $categories,
             'brands' => $brands,
-            'sizes' => $sizes,
         ];
 
         return view('admin.product.edit', $data);
@@ -185,32 +166,8 @@ class ProductController extends Controller
         $product->brand_id = $request->brand_id;
         $product->description = $request->description;
         $product->sale = $request->sale;
+        $product->quantity = $request->quantity;
         $product->save();
-
-        $sizes = $request->size;
-        $quantities = $request->quantity;
-
-        $productSizes = [];
-
-        foreach ($sizes as $key => $size) {
-            if (empty($size) || empty($quantities[$key])) {
-                continue;
-            }
-
-            if (isset($productSizes[$size])) {
-                $productSizes[$size] = [
-                    'product_id' => $id,
-                    'size_id' => $size,
-                    'quantity' => $quantities[$key] + $productSizes[$size]['quantity'],
-                ];
-            } else {
-                $productSizes[$size] = [
-                    'product_id' => $id,
-                    'size_id' => $size,
-                    'quantity' => $quantities[$key],
-                ];
-            }
-        }
 
         $images = $request->file('images');
 
@@ -227,10 +184,8 @@ class ProductController extends Controller
             }
         }
 
-        ProductSize::where('product_id', $id)->delete();
         ProductImage::where('product_id', $id)->delete();
 
-        ProductSize::insert($productSizes);
         ProductImage::insert($productImages);
 
         return redirect()->route('admin.product.index')->with('success', 'Cập nhật sản phẩm thành công');

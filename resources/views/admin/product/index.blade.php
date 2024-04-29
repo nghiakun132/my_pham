@@ -18,7 +18,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên</th>
+                            <th style="width: 20%"
+                            >Tên</th>
                             <th>
                                 Danh mục
                             </th>
@@ -28,8 +29,11 @@
                             <th>Ảnh</th>
                             <th>Giá</th>
                             <th>
-                                Mô tả
+                                Số lượng
                             </th>
+                            {{-- <th>
+                                Mô tả
+                            </th> --}}
 
                             <th style="width: 10%">
                                 Thao tác
@@ -49,7 +53,8 @@
                                     <img src="{{ $product->image }}" alt="" style="width: 100px; height: 100px">
                                 </td>
                                 <td>{{ number_format($product->price) }} VNĐ</td>
-                                <td>{{ $product->description }}</td>
+                                <td>{{ $product->quantity }}</td>
+                                {{-- <td>{{ $product->description }}</td> --}}
                                 <td>
                                     <a href="{{ route('admin.product.edit', $product->id) }}" style="width: 90%"
                                         class="btn btn-primary m-2">Sửa</a>

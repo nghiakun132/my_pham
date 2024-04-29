@@ -106,7 +106,7 @@
                                         $price = $cart->product->sale > 0 ? $cart->product->price - ($cart->product->price * $cart->product->sale) / 100 : $cart->product->price;
                                         ?>
                                         <li class="fw-normal">
-                                            {{ $cart->product->name }} ({{ $cart->size->name }}) x {{ $cart->quantity }}
+                                            {{ $cart->product->name }} x {{ $cart->quantity }}
                                             <span>{{ number_format($price * $cart->quantity) }}đ
                                             </span>
                                         </li>

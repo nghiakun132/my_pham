@@ -26,9 +26,9 @@
                         <div class="fw-brand-check">
                             @foreach ($brands as $brand)
                                 <div class="bc-item">
-                                    <label for="bc-calvin">
+                                    <label for="bc-calvin-{{$brand->id}}">
                                         {{ $brand->name }}
-                                        <input type="checkbox" id="bc-calvin" name="brand[]" value="{{ $brand->id }}"
+                                        <input type="checkbox" id="bc-calvin-{{$brand->id}}" name="brand[]" value="{{ $brand->id }}"
                                             @if (request()->brand && in_array($brand->id, explode(',', request()->brand))) checked @endif>
                                         <span class="checkmark"></span>
                                     </label>
@@ -61,25 +61,6 @@
                         <a href="{{ route('user.white_list') }}" class="reset-btn">
                             Reset
                         </a>
-                    </div>
-
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Size</h4>
-                        <div class="fw-size-choose">
-                            @foreach ($sizes as $size)
-                                <div class="sc-item">
-                                    <a
-                                        href="@if (request()->size == $size->slug) {{ request()->fullUrlWithQuery(['size' => '']) }}
-                                    @else
-                                    {{ request()->fullUrlWithQuery(['size' => $size->slug]) }} @endif">
-                                        <label for="{{ $size->slug }}-size"
-                                            class="{{ request()->size == $size->slug ? 'active' : '' }}">
-                                            {{ $size->name }}
-                                        </label>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-9 order-1 order-lg-2">
@@ -135,6 +116,11 @@
                                             @if ($whiteList->product->sale > 0)
                                                 <div class="sale pp-sale">Sale</div>
                                             @endif
+                                            <div class="icon">
+                                                <a href="{{ route('user.white_list.remove', $whiteList->id) }}"
+                                                    style="color: red; text-decoration: none;"><i
+                                                        class="fa fa-trash"></i></a>
+                                            </div>
                                         </div>
                                         <div class="pi-text">
                                             {{-- <div class="catagory-name">Towel</div> --}}

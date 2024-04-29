@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(AdminSedder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(SizeSeeder::class);
+        // $this->call(CategorySeeder::class);
+        // $this->call(SizeSeeder::class);
         // Cart::create([
         //     'user_id' => 1,
         //     'product_id' => 1,

@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductSize;
-use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 

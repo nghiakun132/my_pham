@@ -32,26 +32,24 @@ class ConvertProducts extends Command
      */
     public function handle()
     {
-        DB::beginTransaction();
-
-        //code...
-
         $categories = Category::pluck('id', 'name');
         $brands = Brand::pluck('id', 'name');
 
-        $products = DB::table('product_hasaki')->where('status', 0)
+        $products = DB::connection('crawl')->table('product_hasaki')->where('status', 0)
             ->get();
 
         $count = count($products);
         $i = 0;
         foreach ($products as $key => $value) {
+
             try {
                 $category_id = $categories->get($value->category);
 
                 if (!$category_id) {
                     $category_id = Category::create([
                         'name' => $value->category,
-                        'slug' => Str::slug($value->category)
+                        'slug' => Str::slug($value->category),
+                        'parent_id' => 0,
                     ])->id;
 
                     $categories->put($value->category, $category_id);
@@ -80,7 +78,7 @@ class ConvertProducts extends Command
                     'updated_at' => Carbon::now(),
                 ]);
 
-                $productImages = DB::table('product_images_hasaki')->where('name', $value->name)->get();
+                $productImages = DB::connection('crawl')->table('product_images_hasaki')->where('name', $value->name)->get();
 
                 $productImagesArr = [];
                 foreach ($productImages as $key => $v) {
@@ -92,16 +90,14 @@ class ConvertProducts extends Command
 
                 DB::table('product_images')->insert($productImagesArr);
 
-                DB::table('product_hasaki')->where('id', $value->id)->update([
+                DB::connection('crawl')->table('product_hasaki')->where('id', $value->id)->update([
                     'status' => 1
                 ]);
 
-                DB::commit();
+                $i++;
 
                 $this->info('Success' . $value->id . ' - ' . $value->name . ' ' . $i . '/' . $count);
             } catch (Exception $e) {
-                DB::rollBack();
-
                 $this->error($e->getMessage());
 
                 $this->info('Error' . $value->id . ' - ' . $value->name . ' ' . $i . '/' . $count);

@@ -14,16 +14,14 @@ class SearchController extends Controller
     {
 
         $brands = Brand::limit(10)->get();
-        $sizes = Size::limit(10)->get();
 
-        $products = Product::query()->with('brand', 'size')
+        $products = Product::query()->with('brand', )
             ->where('name', 'like', '%' . $request->keyword . '%');
 
 
 
         $data = [
             'brands' => $brands,
-            'sizes' => $sizes,
             'products' => $products->paginate($request->input('per_page', 20)),
         ];
         return view('user.search.index', $data);

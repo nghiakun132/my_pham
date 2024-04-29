@@ -17,7 +17,7 @@ return [
         'icon' => 'fas fa-fw fa-list',
     ],
     [
-        'name' => 'Nhà sản xuất',
+        'name' => 'Thương hiệu',
         'route' => 'admin.brand.index',
         'icon' => 'fas fa-fw fa-building',
     ],
@@ -25,16 +25,6 @@ return [
         'name' => 'Sản phẩm',
         'route' => 'admin.product.index',
         'icon' => 'fas fa-fw fa-box',
-        'children' => [
-            [
-                'name' => 'Danh sách',
-                'route' => 'admin.product.index',
-            ],
-            [
-                'name' => 'Kích thước',
-                'route' => 'admin.size.index',
-            ],
-        ],
     ],
     [
         'name' => 'Đơn hàng',

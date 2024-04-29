@@ -26,9 +26,9 @@
                         <div class="fw-brand-check">
                             @foreach ($brands as $brand)
                                 <div class="bc-item">
-                                    <label for="bc-calvin">
+                                    <label for="bc-calvin-{{$brand->id}}">
                                         {{ $brand->name }}
-                                        <input type="checkbox" id="bc-calvin" name="brand[]" value="{{ $brand->id }}"
+                                        <input type="checkbox" id="bc-calvin-{{$brand->id}}" name="brand[]" value="{{ $brand->id }}"
                                             @if (request()->brand && in_array($brand->id, explode(',', request()->brand))) checked @endif>
                                         <span class="checkmark"></span>
                                     </label>
@@ -63,7 +63,7 @@
                         </a>
                     </div>
 
-                    <div class="filter-widget">
+                    {{-- <div class="filter-widget">
                         <h4 class="fw-title">Size</h4>
                         <div class="fw-size-choose">
                             @foreach ($sizes as $size)
@@ -80,7 +80,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-9 order-1 order-lg-2">
                     <div class="product-show-option">
@@ -189,7 +189,7 @@
             let maxamount = $("#maxamount").val();
 
             window.location.href =
-                `{{ route('user.search', ['keyword' => request()->input('keyword')]) }}?brand=${brand.join(',')}` +
+                `{{ route('user.search', ['keyword' => request()->input('keyword')]) }}&brand=${brand.join(',')}` +
                 `&gia_tu=${minamount}&gia_den=${maxamount}`
         }
     </script>

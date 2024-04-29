@@ -10,7 +10,7 @@ use App\Models\District;
 use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderDetail;
-use App\Models\ProductSize;
+use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\UserDiscount;
@@ -29,7 +29,7 @@ class CartController extends Controller
     public function index()
     {
         $carts = Cart::where('user_id', auth()->user()->id)
-            ->with(['product', 'size'])
+            ->with(['product'])
             ->get();
 
         return view('user.cart.index', compact('carts'));
@@ -37,54 +37,29 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-
-
-        $data = $request->all();
-
-        if (!auth()->user()) {
-            // return response()->json([
-            //     'status' => 'error',
-            //     'message' => 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng',
-            // ], 400);
-
-
-            //use Cookie
-
-            $cart = json_decode($request->cookie('cart'), true);
-
-            if (empty($cart)) {
-                $cart = [];
-            }
-
-            $key = $request->productId . '-' . $request->size;
-
-            if (array_key_exists($key, $cart)) {
-                $cart[$key] += $request->quantity;
-            } else {
-                $cart[$key] = $request->quantity;
-            }
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Thêm sản phẩm vào giỏ hàng thành công',
-            ])->cookie('cart', json_encode($cart), 60 * 24 * 30);
-        }
-
         $cart = Cart::where(
             'user_id',
             auth()->user()->id
         )->where(
                 'product_id',
                 $request->productId
-            )->where('size_id', $request->size)
+            )
             ->first();
+
+            $product = Product::where('id', $request->productId)->first();
+
+            if($product->quantity < $request->quantity){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Sản phẩm ' . $product->name . ' không đủ số lượng',
+                ], 500);
+            }
 
         if (empty($cart)) {
             $cart = new Cart();
             $cart->user_id = auth()->user()->id;
             $cart->product_id = $request->productId;
             $cart->quantity = $request->quantity;
-            $cart->size_id = $request->size;
 
         } else {
             $cart->quantity += $request->quantity;
@@ -232,17 +207,12 @@ class CartController extends Controller
                     'size_id' => $cart->size_id,
                 ];
 
-                $productSize = ProductSize::where('product_id', $cart->product_id)
-                    ->where('size_id', $cart->size_id)
-                    ->first();
-
-                if ($productSize->quantity < $cart->quantity) {
+                if ($cart->product->quantity < $cart->quantity) {
                     return redirect()->back()->with('error', 'Sản phẩm '
                         . $cart->product->name . ' - ' . $cart->size->name . ' không đủ số lượng');
                 }
 
-                $productSize->quantity -= $cart->quantity;
-                $productSize->save();
+                $cart->product->decrement('quantity', $cart->quantity);
             }
 
             $discount = 0;

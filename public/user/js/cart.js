@@ -1,7 +1,6 @@
 function addToCart()
 {
         let quantity = $('input[name="quantity"]').val();
-        let size = $('#size').val();
         let user_id = $('#user_id').val();
 
 
@@ -23,15 +22,6 @@ function addToCart()
         return;
     }
 
-    if(!size){
-        Swal.fire({
-            icon: 'error',
-            title: 'Lỗi!',
-            text: 'Vui lòng chọn size!',
-        })
-        return;
-    }
-
     let productId = $('#product_id').val();
 
     $.ajax({
@@ -39,7 +29,6 @@ function addToCart()
         method: 'POST',
         data: {
             quantity: quantity,
-            size: size,
             productId: productId
         },
         headers: {
@@ -62,7 +51,7 @@ function addToCart()
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Có lỗi xảy ra! Vui lòng thử lại sau!',
+                text: error.responseJSON.message,
             })
         }
     })

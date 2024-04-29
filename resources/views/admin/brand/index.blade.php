@@ -1,8 +1,8 @@
 @extends('admin.layouts.index')
-@section('title', 'Quản lý nhà sản xuất')
+@section('title', 'Quản lý thương hiệu')
 @section('content')
     <h3>
-        Quản lý nhà sản xuất
+        Quản lý thương hiệu
     </h3>
 
     <div class="row">
@@ -19,15 +19,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
-                            <th>
-                                Email
-                            </th>
-                            <th>
-                                Số điện thoại
-                            </th>
-                            <th>
-                                Địa chỉ
-                            </th>
                             <th style="width: 13%">
                                 Thao tác
                             </th>
@@ -38,9 +29,6 @@
                             <tr>
                                 <td>{{ $brand->id }}</td>
                                 <td>{{ $brand->name }}</td>
-                                <td>{{ $brand->email }}</td>
-                                <td>{{ $brand->phone }}</td>
-                                <td>{{ $brand->address }}</td>
                                 <td class="d-flex flex-column">
                                     <a href="{{ route('admin.brand.edit', $brand->id) }}"
                                         class="btn btn-primary mb-2">Sửa</a>
@@ -62,7 +50,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm nhà sản xuất</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm thương hiệu</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -72,41 +60,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="error-name">Tên nhà sản xuất</label>
+                                    <label for="error-name">Tên thương hiệu</label>
                                     <input type="text" class="form-control" name="name" id="error-name"
                                         oninput="$(this).removeClass('is-invalid');$('#error-msg-name').text('');"
-                                        placeholder="Nhập tên nhà sản xuất">
+                                        placeholder="Nhập tên thương hiệu">
                                     <p id="error-msg-name" class="text-danger">
-                                </div>
-                                </p>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="error-email">Email</label>
-                                    <input type="text" class="form-control" name="email" id="error-email"
-                                        oninput="$(this).removeClass('is-invalid');$('#error-msg-email').text('');"
-                                        placeholder="Nhập email">
-                                    <p id="error-msg-email" class="text-danger">
-                                </div>
-                                </p>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="error-phone">Số điện thoại</label>
-                                    <input type="number" class="form-control" name="phone" id="error-phone"
-                                        oninput="$(this).removeClass('is-invalid');$('#error-msg-phone').text('');"
-                                        placeholder="Nhập số điện thoại">
-                                    <p id="error-msg-phone" class="text-danger">
-                                </div>
-                                </p>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="error-address">Địa chỉ</label>
-                                    <input type="text" class="form-control" name="address" id="error-address"
-                                        oninput="$(this).removeClass('is-invalid');$('#error-msg-address').text('');"
-                                        placeholder="Nhập địa chỉ">
-                                    <p id="error-msg-address" class="text-danger">
                                 </div>
                                 </p>
                             </div>

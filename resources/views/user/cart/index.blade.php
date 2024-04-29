@@ -49,7 +49,7 @@
                                         </td>
                                         <td class="cart-title first-row">
                                             <a href="{{ route('user.product.index', $cart->product->slug) }}">
-                                                <h5>{{ $cart->product->name }} - {{ $cart->size->name }}</h5>
+                                                <h5>{{ $cart->product->name }} </h5>
                                             </a>
                                         </td>
                                         <td class="p-price first-row">

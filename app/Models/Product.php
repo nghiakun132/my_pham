@@ -20,6 +20,8 @@ class Product extends Model
         'description',
         'image',
         'sale',
+        'quantity',
+        'status'
     ];
 
     public function category()
@@ -41,10 +43,14 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    // public function getImageAttribute($value)
-    // {
-    //     return asset('products/' . $value);
-    // }
+    public function getImageAttribute($value)
+    {
+        if(strpos($value, 'http') === 0) {
+            return $value;
+        }
+
+        return asset('products/' . $value);
+    }
 
     public function getSalePriceAttribute()
     {
@@ -53,5 +59,15 @@ class Product extends Model
         }
 
         return $this->price;
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return round($value);
+    }
+
+    public function getNameAttribute($value)
+    {
+        return html_entity_decode($value);
     }
 }

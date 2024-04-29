@@ -139,20 +139,25 @@ class UserController extends Controller
     public function getWhiteList(Request $request)
     {
         $brands = Brand::limit(10)->get();
-        $sizes = Size::limit(10)->get();
 
         $whiteLists = WhiteList::where('user_id', Auth::id())
             ->with(['product'])->paginate($request->input('per_page', 10));
 
         $data = [
             'brands' => $brands,
-            'sizes' => $sizes,
             'whiteLists' => $whiteLists
         ];
 
         return view('user.white_list', $data);
     }
 
+    public function removeWhiteList($id)
+    {
+        WhiteList::where('id', $id)
+            ->delete();
+
+        return redirect()->back()->with('success', 'Xóa khỏi danh sách yêu thích thành công');
+    }
 
     public function update(Request $request)
     {

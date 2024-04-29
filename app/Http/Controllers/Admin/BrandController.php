@@ -21,14 +21,8 @@ class BrandController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
         ], [
-            'name.required' => 'Tên nhà sản xuất không được để trống',
-            'address.required' => 'Địa chỉ không được để trống',
-            'phone.required' => 'Số điện thoại không được để trống',
-            'email.required' => 'Email không được để trống',
+            'name.required' => 'Tên thương hiệu không được để trống',
         ]);
 
         if ($validator->fails()) {
@@ -37,13 +31,10 @@ class BrandController extends Controller
         $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'email' => $request->email,
         ];
 
         Brand::insert($data);
-        return response()->json(['message' => 'Thêm nhà sản xuất thành công', 'status' => 200], 200);
+        return response()->json(['message' => 'Thêm thương hiệu thành công', 'status' => 200], 200);
 
     }
 
@@ -59,14 +50,8 @@ class BrandController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
         ], [
-            'name.required' => 'Tên nhà sản xuất không được để trống',
-            'address.required' => 'Địa chỉ không được để trống',
-            'phone.required' => 'Số điện thoại không được để trống',
-            'email.required' => 'Email không được để trống',
+            'name.required' => 'Tên thương hiệu không được để trống',
         ]);
 
         $brand = Brand::findOrFail($id);
@@ -74,12 +59,9 @@ class BrandController extends Controller
         $brand->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'email' => $request->email,
         ]);
 
-        return redirect()->route('admin.brand.index')->with('success', 'Cập nhật nhà sản xuất thành công');
+        return redirect()->route('admin.brand.index')->with('success', 'Cập nhật thương hiệu thành công');
     }
 
     public function destroy(Request $request, $id)
@@ -87,6 +69,6 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $brand->delete();
 
-        return redirect()->back()->with('success', 'Xóa nhà sản xuất thành công');
+        return redirect()->back()->with('success', 'Xóa thương hiệu thành công');
     }
 }

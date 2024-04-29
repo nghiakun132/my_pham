@@ -114,10 +114,10 @@
     <script>
         $(function() {
             $('#example1').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
+                // "paging": true,
+                // "lengthChange": true,
+                // "searching": true,
+                "ordering": false,
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
@@ -140,6 +140,18 @@
     </script>
 
     @include('admin.layouts.alert')
+
+    <script>
+        function onChange(name) {
+            try {
+                document.getElementById(name).classList.remove('is-invalid');
+                document.getElementById('error-msg-' + name).innerText = '';
+                document.getElementById(name).parentElement.classList.remove('text-danger');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
 </body>
 
 </html>

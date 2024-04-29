@@ -53,7 +53,9 @@
                         <div class="col-lg-6">
                             <div class="product-details">
                                 <div class="pd-title">
-                                    <span>oranges</span>
+                                    <span>
+                                        {{ $product->brand->name }}
+                                    </span>
                                     <h3>{{ $product->name }}</h3>
                                     <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                 </div>
@@ -77,18 +79,6 @@
                                         @endif
                                     </h4>
                                 </div>
-                                {{-- <div class="mb-2">
-                                    <label for="size">Size</label>
-                                    <select name="size" id="size" class="form-control">
-                                        <option value="">Chọn size</option>
-                                        @foreach ($product->size as $size)
-                                            <option value="{{ $size->id }}"
-                                                @if ($size->pivot->quantity == 0) disabled @endif>
-                                                {{ $size->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div> --}}
 
                                 <div class="quantity">
                                     <div class="pro-qty">
@@ -176,89 +166,13 @@
                                                 <td class="p-catagory">
                                                     Số lượng
                                                 </td>
-                                                {{-- <td>
-                                                    <div class="p-stock">
-                                                        <ul class="lisr-group">
-                                                            @foreach ($product->size as $size)
-                                                                <li class="list-group-item">
-                                                                    <span>{{ $size->name }}</span>:
-                                                                    <span>{{ $size->pivot->quantity != 0 ? $size->pivot->quantity : 'Hết hàng' }}</span>
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </div>
-                                                </td> --}}
+                                                <td>
+                                                    {{ $product->quantity }}
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
-                                {{-- <div class="tab-pane fade" id="tab-3" role="tabpanel">
-                                    <div class="customer-review-option">
-                                        <h4>2 Comments</h4>
-                                        <div class="comment-option">
-                                            <div class="co-item">
-                                                <div class="avatar-pic">
-                                                    <img src="img/product-single/avatar-1.png" alt="">
-                                                </div>
-                                                <div class="avatar-text">
-                                                    <div class="at-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
-                                                    <div class="at-reply">Nice !</div>
-                                                </div>
-                                            </div>
-                                            <div class="co-item">
-                                                <div class="avatar-pic">
-                                                    <img src="img/product-single/avatar-2.png" alt="">
-                                                </div>
-                                                <div class="avatar-text">
-                                                    <div class="at-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <h5>Roy Banks <span>27 Aug 2019</span></h5>
-                                                    <div class="at-reply">Nice !</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="personal-rating">
-                                            <h6>Your Ratind</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
-                                        </div>
-                                        <div class="leave-comment">
-                                            <h4>Leave A Comment</h4>
-                                            <form action="#" class="comment-form">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <input type="text" placeholder="Name">
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" placeholder="Email">
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <textarea placeholder="Messages"></textarea>
-                                                        <button type="submit" class="site-btn">Send message</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>

@@ -13,45 +13,9 @@
                         text-danger
                     @enderror">
                     <label for="name">Tên nhà sản xuất</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ $brand->name }}">
+                    <input type="text" class="form-control" name="name" id="name" value="{{ $brand->name }}" oninput="onChange('name')">
                     @error('name')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="form-group
-                    @error('email')
-                        text-danger
-                    @enderror">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" value="{{ $brand->email }}">
-                    @error('email')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="form-group
-                    @error('phone')
-                        text-danger
-                    @enderror">
-                    <label for="phone">Số điện thoại</label>
-                    <input type="number" class="form-control" name="phone" id="phone" value="{{ $brand->phone }}">
-                    @error('phone')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="form-group
-                    @error('address')
-                        text-danger
-                    @enderror">
-                    <label for="address">Địa chỉ</label>
-                    <input type="text" class="form-control" name="address" id="address" value="{{ $brand->address }}">
-                    @error('address')
-                        <p class="text-danger">
+                        <p class="text-danger" id="error-msg-name">
                             {{ $message }}
                         </p>
                     @enderror
