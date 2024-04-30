@@ -29,15 +29,18 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <label for="name">Tên<span>*</span></label>
-                                <input type="text" name="name" id="name" value="{{ $address->name ?? '' }}">
+                                <input type="text" name="name" id="name" value="{{ $address->name ?? '' }}"
+                                oninput="this.style.border = '2px solid #ebebeb'">
                             </div>
                             <div class="col-lg-12">
                                 <label for="phone">Số điện thoại<span>*</span></label>
-                                <input type="text" name="phone" id="phone" value="{{ $address->phone ?? '' }}">
+                                <input type="text" name="phone" id="phone" value="{{ $address->phone ?? '' }}"
+                                oninput="this.style.border = '2px solid #ebebeb'">
                             </div>
                             <div class="col-lg-4">
                                 <label for="province">Tỉnh<span>*</span></label>
-                                <select class="custom-select" id="province" name="province">
+                                <select class="custom-select" id="province" name="province"
+                                oninput="this.style.border = '2px solid #ebebeb'">
                                     <option value="">Chọn tỉnh/ thành phố</option>
                                     @foreach ($provinces as $province)
                                         <option value="{{ $province['id'] }}"
@@ -49,7 +52,8 @@
                             </div>
                             <div class="col-lg-4">
                                 <label for="district">Quận/ Huyện<span>*</span></label>
-                                <select class="custom-select" id="district" name="district">
+                                <select class="custom-select" id="district" name="district"
+                                oninput="this.style.border = '2px solid #ebebeb'">
                                     <option value="">Chọn quận/ huyện</option>
                                     @if (!empty($address) && !empty($address->district))
                                         @foreach ($districts as $district)
@@ -64,7 +68,8 @@
                             </div>
                             <div class="col-lg-4">
                                 <label for="ward">Phường/ Xã</label>
-                                <select class="custom-select" id="ward" name="ward">
+                                <select class="custom-select" id="ward" name="ward"
+                                oninput="this.style.border = '2px solid #ebebeb'">
                                     <option value="">Chọn phường/ xã</option>
                                     @if (!empty($address) && !empty($address->ward))
                                         @foreach ($wards as $ward)
@@ -78,7 +83,8 @@
                             </div>
                             <div class="col-lg-12">
                                 <label for="address">Địa chỉ cụ thể<span>*</span></label>
-                                <input type="text" name="address" id="address" value="{{ $address->address ?? '' }}">
+                                <input type="text" name="address" id="address" value="{{ $address->address ?? '' }}"
+                                oninput="this.style.border = '2px solid #ebebeb'">
                             </div>
                             <div class="col-lg-12">
                                 <label for="note">Ghi chú</label>
@@ -167,6 +173,34 @@
             var address = $('#address').val();
 
             if (name == '' || phone == '' || province == '' || district == '' || ward == '' || address == '') {
+                switch ('') {
+                    case name:
+                        $('#name').css('border-color', 'red')
+                        $('#name').focus();
+
+                        break;
+                    case phone:
+                        $('#phone').css('border-color', 'red')
+                        $('#phone').focus();
+                        break;
+                    case province:
+                        $('#province').css('border-color', 'red')
+                        $('#province').focus();
+                        break;
+                    case district:
+                        $('#district').css('border-color', 'red')
+                        $('#district').focus();
+                        break;
+                    case ward:
+                        $('#ward').css('border-color', 'red')
+                        $('#ward').focus();
+                        break;
+                    case address:
+                        $('#address').css('border-color', 'red')
+                        $('#address').focus();
+                        break;
+                }
+
                 return Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

@@ -24,8 +24,8 @@
                 <div class="col-lg-12 mb-4">
                     <div class="d-flex justify-content-between">
                         @include('user.nav')
-                        <a class="btn btn-outline-success" href="#" data-toggle="modal"
-                            data-target="#add-address">Thêm mới</a>
+                        {{-- <a class="btn btn-outline-success" href="#" data-toggle="modal"
+                            data-target="#add-address">Thêm mới</a> --}}
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -48,12 +48,15 @@
                                         <td>{{ $address->phone }}</td>
                                         <td>{{ $address->full_address }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary">Sửa</a>
-                                            <a href="{{ route('user.address.delete', $address->id) }}"
-                                                class="btn btn-danger">Xóa</a>
-                                            <a href="{{ route('user.address.default', $address->id) }}"
-                                                class="btn btn-success">Mặc định</a>
-                                            </a>
+                                            <div class="d-flex flex-column">
+                                                {{-- <a href="#" class="m-1 btn btn-primary">Sửa</a> --}}
+                                                <a href="{{ route('user.address.delete', $address->id) }}"
+                                                    class="m-1 btn btn-danger">Xóa</a>
+                                                <a href="{{ route('user.address.default', $address->id) }}"
+                                                    class="m-1 btn btn-success">Mặc định</a>
+                                                </a>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 @empty
@@ -68,7 +71,7 @@
             </div>
         </div>
     </section>
-
+{{--
 
     <div class="modal fade" id="add-address" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -128,7 +131,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection
 

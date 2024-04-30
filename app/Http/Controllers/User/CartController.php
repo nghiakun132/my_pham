@@ -118,7 +118,7 @@ class CartController extends Controller
     public function checkout()
     {
         $carts = Cart::where('user_id', auth()->user()->id)
-            ->with(['product', 'size'])
+            ->with(['product'])
             ->get();
 
         $address = User::where('id', Auth::id())->first()->getDefaultAddress();
@@ -185,9 +185,8 @@ class CartController extends Controller
     {
         DB::beginTransaction();
         try {
-
             $carts = Cart::where('user_id', auth()->user()->id)
-                ->with(['product', 'size'])
+                ->with(['product'])
                 ->get();
 
             $orderDetail = [];
@@ -204,7 +203,6 @@ class CartController extends Controller
                     'product_id' => $cart->product_id,
                     'quantity' => $cart->quantity,
                     'price' => $price,
-                    'size_id' => $cart->size_id,
                 ];
 
                 if ($cart->product->quantity < $cart->quantity) {

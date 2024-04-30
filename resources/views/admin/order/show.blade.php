@@ -43,7 +43,7 @@
                                 </td>
 
                                 <td>
-                                    {{ $detail->product->name }} - {{ $detail->size->name }}
+                                    {{ $detail->product->name }}
                                     <a href="{{ route('user.product.index', $detail->product->slug) }}" target="_blank"
                                         style="color: rgb(47, 50, 244); text-decoration: none;" title="Xem chi tiết">
 

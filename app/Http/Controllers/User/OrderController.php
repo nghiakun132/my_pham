@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\ProductSize;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class OrderController extends Controller
     public function show($code)
     {
         $order = Order::where('code', $code)
-            ->with(['details.product', 'details.size', 'cancel'])
+            ->with(['details.product', 'details', 'cancel'])
             ->first();
 
         return view('user.order.detail', compact('order'));
@@ -50,9 +51,8 @@ class OrderController extends Controller
             ]);
 
             foreach ($order->details as $detail) {
-                ProductSize::where('product_id', $detail->product_id)
-                    ->where('size_id', $detail->size_id)
-                    ->increment('quantity', $detail->quantity);
+                Product::where('id', $detail->product_id)
+                ->increment('quantity', $detail->quantity);
             }
 
             $order->userDiscount()->delete();

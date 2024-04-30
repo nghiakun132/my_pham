@@ -165,22 +165,18 @@ class UserController extends Controller
             'name' => 'required|max:50',
             'phone' => 'required',
             'email' => 'required|email',
-            'birthday' => 'required|date'
         ], [
             'name.required' => 'Tên không được để trống',
             'name.max' => 'Tên không quá 50 ký tự',
             'phone.required' => 'Số điện thoại không được để trống',
             'email.required' => 'Email không được để trống',
             'email.email' => 'Email không đúng định dạng',
-            'birthday.required' => 'Ngày sinh không được để trống',
-            'birthday.date' => 'Ngày sinh không đúng định dạng'
         ]);
 
         $user = User::find(Auth::id());
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->email = $request->email;
-        $user->birthday = $request->birthday;
         $user->save();
 
         return redirect()->route('user.profile')->with('success', 'Cập nhật thông tin thành công');

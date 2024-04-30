@@ -55,14 +55,6 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="birthday">Ngày sinh</label>
-                                            <input type="date" class="form-control" id="birthday" name="birthday"
-                                                value="{{ $user->birthday }}">
-                                            @error('birthday')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
 
                                         <div class="d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary">Cập nhật</button>
